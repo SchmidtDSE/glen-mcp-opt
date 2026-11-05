@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "glen-mcp-opt"
+version = "0.1.0"
+description = "MCP server that gives GLEN (and any MCP client) access to open-source optimization solvers."
+readme = "README.md"
+license = "BSD-3-Clause"
+requires-python = ">=3.11"
+dependencies = [
+    "mcp>=2.3,<3",
+    "uvicorn>=0.30",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "httpx>=0.27"]
+
+[project.scripts]
+glen-mcp-opt = "glen_opt.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/glen_opt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
