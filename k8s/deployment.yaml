@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: glen-mcp-opt
+  namespace: schmidtdse
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: glen-mcp-opt
+  template:
+    metadata:
+      labels:
+        app: glen-mcp-opt
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: topology.kubernetes.io/region
+                    operator: In
+                    values: ["us-west"]
+      containers:
+        - name: server
+          image: ghcr.io/schmidtdse/glen-mcp-opt:main
+          imagePullPolicy: Always
+          env:
+            # In-cluster NRP Ceph endpoint (plain http); same data duckdb-mcp reads.
+            - name: S3_DEFAULT_ENDPOINT
+              value: "rook-ceph-rgw-nautiluss3.rook"
+            - name: MAX_TIME_LIMIT
+              value: "300"
+          resources:
+            requests:
+              memory: 1Gi
+              cpu: 250m
+            limits:
+              memory: 16Gi
+              cpu: "8"
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 6

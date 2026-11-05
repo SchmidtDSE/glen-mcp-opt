@@ -1,0 +1,62 @@
+[
+  {
+    "id": "farm_lp",
+    "class": "LP",
+    "question": "A farm has 100 acres and 240 hours of labor. Wheat earns $40 per acre and needs 3 hours of labor per acre. Corn earns $30 per acre and needs 2 hours per acre. How many acres of each should be planted to maximize profit, and what is the maximum profit?",
+    "expected_objective": 3400
+  },
+  {
+    "id": "project_knapsack",
+    "class": "ILP",
+    "question": "We can fund any of five conservation projects. Costs ($M): P1 3, P2 5, P3 2, P4 4, P5 6. Benefit scores: P1 4, P2 7, P3 2, P4 5, P5 8. The budget is $10M and projects cannot be partly funded. Which projects maximize total benefit, and what is the total benefit?",
+    "expected_objective": 13
+  },
+  {
+    "id": "nest_boxes",
+    "class": "ILP",
+    "question": "We are installing nest boxes on four parcels. Cost per box: A $120, B $80, C $150, D $60. Expected nesting pairs per box: A 3, B 2, C 4, D 1. Maximum boxes per parcel: A 5, B 8, C 4, D 10. With a $1,500 budget, how many boxes should go on each parcel to maximize expected nesting pairs? What is the maximum?",
+    "expected_objective": 38
+  },
+  {
+    "id": "fixed_charge",
+    "class": "MILP",
+    "question": "Two seed banks can supply a restoration program that needs 70 tons of seed. Opening seed bank A costs $100 and it can supply up to 60 tons at $2 per ton. Opening seed bank B costs $80 and it can supply up to 50 tons at $3 per ton. Which seed banks should be opened and how much should each supply to minimize total cost? What is the minimum cost?",
+    "expected_objective": 330
+  },
+  {
+    "id": "ranger_assignment",
+    "class": "ILP",
+    "question": "Assign three rangers (Ana, Ben, Cy) to three sites (S1, S2, S3), one ranger per site. Travel cost: Ana 9, 2, 7; Ben 6, 4, 3; Cy 5, 8, 1 (for S1, S2, S3). What assignment minimizes total travel cost, and what is that cost?",
+    "expected_objective": 9
+  },
+  {
+    "id": "seedling_transport",
+    "class": "LP",
+    "question": "Nursery N1 has 300 seedlings and nursery N2 has 200. Restoration sites need S1 150, S2 200, S3 100 seedlings. Cost per seedling shipped: N1 to S1 $4, S2 $6, S3 $9; N2 to S1 $5, S2 $3, S3 $7. How should seedlings be shipped to meet all needs at minimum cost? What is the minimum cost?",
+    "expected_objective": 2100
+  },
+  {
+    "id": "station_cover",
+    "class": "ILP",
+    "question": "We need water monitoring that covers six zones (1-6). Candidate stations, cost, and zones covered: A cost 4 covers 1,2,3; B cost 3 covers 2,4; C cost 5 covers 3,4,5; D cost 2 covers 5,6; E cost 4 covers 1,6; F cost 3 covers 4,5,6. Which stations cover every zone at least once at minimum total cost? What is that cost?",
+    "expected_objective": 7
+  },
+  {
+    "id": "survey_makespan",
+    "class": "LP",
+    "question": "120 units of survey work are split among three teams that work in parallel. Team 1 completes 2 units per hour, team 2 completes 3, team 3 completes 5. How should the work be split so that all work is finished as early as possible? How many hours does it take?",
+    "expected_objective": 12
+  },
+  {
+    "id": "adjacent_parcels",
+    "class": "ILP",
+    "question": "Five parcels lie in a row: P1-P2-P3-P4-P5 (each borders the next). Habitat scores: P1 5, P2 2, P3 6, P4 3, P5 4. We can protect at most 3 parcels. Each pair of bordering parcels that are both protected adds a connectivity bonus of 3. Which parcels maximize total habitat score plus bonuses? What is the maximum total?",
+    "expected_objective": 19
+  },
+  {
+    "id": "infeasible_target",
+    "class": "LP",
+    "question": "Land costs $3,000 per acre and the budget is $1,000,000. Can we protect at least 500 acres? If so, what is the cheapest way?",
+    "expected_status": "infeasible"
+  }
+]

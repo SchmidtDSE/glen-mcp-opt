@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: glen-mcp-opt
+  namespace: schmidtdse
+  annotations:
+    haproxy-ingress.github.io/cors-enable: "true"
+    haproxy-ingress.github.io/cors-allow-origin: "*"
+    haproxy-ingress.github.io/cors-allow-methods: "GET, POST, OPTIONS"
+    haproxy-ingress.github.io/cors-allow-headers: "Content-Type,Authorization,mcp-session-id,mcp-protocol-version"
+    haproxy-ingress.github.io/cors-max-age: "86400"
+    haproxy-ingress.github.io/balance-algorithm: leastconn
+    # Solves can run up to MAX_TIME_LIMIT (300 s) plus data loading.
+    haproxy-ingress.github.io/timeout-client: "600s"
+    haproxy-ingress.github.io/timeout-server: "600s"
+spec:
+  ingressClassName: haproxy
+  tls:
+    - hosts:
+        - glen-opt.nrp-nautilus.io
+  rules:
+    - host: glen-opt.nrp-nautilus.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: glen-mcp-opt
+                port:
+                  number: 8000
