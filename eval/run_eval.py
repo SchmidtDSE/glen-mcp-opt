@@ -15,6 +15,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import logging
 import os
 import time
 from pathlib import Path
@@ -22,6 +23,8 @@ from pathlib import Path
 import httpx
 
 from glen_opt.server import mcp
+
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 # The models tpl-ca offers (tpl-ca/k8s/configmap.yaml).
 MODELS = [
@@ -105,9 +108,9 @@ async def main() -> None:
                 except Exception as e:
                     r = {"model": model, "problem": p["id"], "pass": False, "error": str(e)[:300]}
                 results.append(r)
+                Path(a.out).write_text(json.dumps(results, indent=2))
                 print(f"{model:32} {p['id']:20} {'PASS' if r['pass'] else 'FAIL'}"
                       f"  {r.get('error') or ''}", flush=True)
-    Path(a.out).write_text(json.dumps(results, indent=2))
 
     print("\n| model | passed | avg tool calls | check errors |\n|---|---|---|---|")
     for model in a.models:
